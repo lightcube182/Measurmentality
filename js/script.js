@@ -1,19 +1,20 @@
 //Version 2.0. We have some form of collision detection (space bar in correct location), but I still don't know how to
 //make multiple notes appear at different times.
 //I messed with ticker for a while, but couldn't get it working.
-//Tried for a bit to add in a staff, but it's going to look so crappy
-//I'm gonna scrap it and try to draw one in a bit.
+//Drew a staff across the screen and now have the notes lining up on them for our notes that exist so far.
+//We need a better way to represent the notes though rather than hardcoding, so I'll probably work on that next.
 //Also, added an octave variable to the create note method.
 
 var stage;
 var size = 50;
-var gKey = 125 + size*3;
 var fKey = 125;
-var eKey = 125 + size*4;
+var eKey = 125 + size*.5;
 var dKey = 125 + size;
-var cKey = 4*size;
+var cKey = 125 + size*1.5;
 var bKey = 125 + size*2;
-var aKey = 6*size;
+var aKey = 125 + size*2.5;
+var gKey = 125 + size*3;
+var eKey = 125 + size*4;
 var gClef;
 var staff;
 var notes = new Array();
@@ -25,7 +26,7 @@ function init(){
     
     staff = new createjs.Shape();
     staff.graphics.beginStroke("black");
-    staff.graphics.setStrokeStyle(10);
+    staff.graphics.setStrokeStyle(5);
     staff.graphics.moveTo(0, eKey);
     staff.graphics.lineTo(canvas.width, eKey);
     staff.graphics.moveTo(0, gKey);
@@ -39,7 +40,7 @@ function init(){
     stage.addChild(staff);
     
     gClef = new createjs.Bitmap("images/TrebleClef.svg.hi.png");
-    gClef.regY = gClef.height;
+    gClef.regY = 298;
     gClef.scaleX = .1;
     gClef.scaleY = .1;
     stage.addChild(gClef);
@@ -99,7 +100,7 @@ function generateNote(letter, octave){
     var canvasRight = canvas.width;
     var theNote = new createjs.Bitmap("images/quarter_note.svg");
     notes.push(theNote);
-    theNote.regX
+    theNote.regY = 750;
     theNote.scaleX = .1;
     theNote.scaleY = .1;
     theNote.x = canvasRight;
