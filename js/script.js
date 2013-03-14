@@ -5,19 +5,15 @@
 //I'm gonna scrap it and try to draw one in a bit.
 //Also, added an octave variable to the create note method.
 
-var shape;
 var stage;
-var SIZE = 50;
-var GKEY = 0;
-var FKEY = SIZE;
-var EKEY = 2*SIZE;
-var DKEY = 3*SIZE;
-var CKEY = 4*SIZE;
-var BKEY = 5*SIZE;
-var AKEY = 6*SIZE;
-var LOWGKEY = 7*SIZE;
-var LOWFKEY = 8*SIZE;
-var LOWEKEY = 9*SIZE;
+var size = 50;
+var gKey = 125 + size*3;
+var fKey = 125;
+var eKey = 125 + size*4;
+var dKey = 125 + size;
+var cKey = 4*size;
+var bKey = 125 + size*2;
+var aKey = 6*size;
 var gClef;
 var staff;
 var notes = new Array();
@@ -27,30 +23,37 @@ function init(){
     graphics = new createjs.Graphics();
     stage = new createjs.Stage(canvas);
     
-    staff = new createjs.Bitmap("images/blank-staff.gif");
-    staff.scaleX = 2;
-    staff.scaleY = 2;
-    staff.y = 250;
+    staff = new createjs.Shape();
+    staff.graphics.beginStroke("black");
+    staff.graphics.setStrokeStyle(10);
+    staff.graphics.moveTo(0, eKey);
+    staff.graphics.lineTo(canvas.width, eKey);
+    staff.graphics.moveTo(0, gKey);
+    staff.graphics.lineTo(canvas.width, gKey);
+    staff.graphics.moveTo(0, bKey);
+    staff.graphics.lineTo(canvas.width, bKey);
+    staff.graphics.moveTo(0, dKey);
+    staff.graphics.lineTo(canvas.width, dKey);
+    staff.graphics.moveTo(0, fKey);
+    staff.graphics.lineTo(canvas.width, fKey);
     stage.addChild(staff);
     
     gClef = new createjs.Bitmap("images/TrebleClef.svg.hi.png");
+    gClef.regY = gClef.height;
     gClef.scaleX = .1;
     gClef.scaleY = .1;
     stage.addChild(gClef);
-
-    
-    graphics.beginFill("black");
-    graphics.drawRect(0,0,SIZE,SIZE);
     
     stage.update();
-    generateNote(BKEY, 0);
+    generateNote(eKey, 0);
 }
+
 document.onkeypress = function(evt) {
     evt = evt || window.event;
     var charCode = evt.keyCode || evt.which;
     switch (charCode) {
         case 97:
-            gClef.y = AKEY;
+            gClef.y = aKey;
             stage.update();
             break;
         case 32:
@@ -63,40 +66,42 @@ document.onkeypress = function(evt) {
             stage.update();
             break;
         case 115:
-            gClef.y = BKEY;
+            gClef.y = bKey;
             stage.update();
             break;
         case 100:
-            gClef.y = CKEY;
+            gClef.y = cKey;
             stage.update();
             break;
         case 102:
-            gClef.y = DKEY;
+            gClef.y = dKey;
             stage.update();
             break;
         case 106:
-            gClef.y = EKEY;
+            gClef.y = eKey;
             stage.update();
             break;
         case 107:
-            gClef.y = FKEY;
+            gClef.y = fKey;
             stage.update();
             break;
         case 108:
-            gClef.y = GKEY;
+            gClef.y = gKey;
             stage.update();
             break;
         default:
             break;
     }
 }
+
 function generateNote(letter, octave){    
     var canvas = document.getElementById("myCanv");
     var canvasRight = canvas.width;
     var theNote = new createjs.Bitmap("images/quarter_note.svg");
     notes.push(theNote);
-    theNote.scaleX = .05;
-    theNote.scaleY = .05;
+    theNote.regX
+    theNote.scaleX = .1;
+    theNote.scaleY = .1;
     theNote.x = canvasRight;
     theNote.y = letter + (octave * 7);
     stage.addChild(theNote);
