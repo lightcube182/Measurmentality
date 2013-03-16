@@ -7,6 +7,7 @@
 
 var stage;
 var size = 50;
+var octave = 3;
 var fKey = 125;
 var dKey = 125 + size*4.5;
 var cKey = 125 + size*5;
@@ -51,7 +52,6 @@ function init(){
 document.onkeypress = function(evt) {
     evt = evt || window.event;
     var charCode = evt.keyCode || evt.which;
-    var octave;
     switch (charCode) {
         case 97:
             gClef.y = aKey - (octave - 3)*7*25;
@@ -110,7 +110,7 @@ document.onkeypress = function(evt) {
     }
 }
 
-function generateNote(letter, octave){    
+function generateNote(letter, oct){    
     var canvas = document.getElementById("myCanv");
     var canvasRight = canvas.width;
     var theNote = new createjs.Bitmap("images/quarter_note.svg");
@@ -119,7 +119,7 @@ function generateNote(letter, octave){
     theNote.scaleX = .2;
     theNote.scaleY = .2;
     theNote.x = canvasRight;
-    theNote.y = letter - ((octave - 3)*7*25);
+    theNote.y = letter - ((oct - 3)*7*25);
     stage.addChild(theNote);
     createjs.Ticker.setFPS(60);
     stage.update();
